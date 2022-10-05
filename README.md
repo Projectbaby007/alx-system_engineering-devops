@@ -1,1 +1,1 @@
-This repository containssolutions to shell tasks
+Basic shell 0x00
