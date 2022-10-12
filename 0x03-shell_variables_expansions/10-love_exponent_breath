@@ -1,2 +1,2 @@
 #!/bini/bash
-echo $(($BREATH**LOVE))
+echo $(($BREATH++LOVE))
