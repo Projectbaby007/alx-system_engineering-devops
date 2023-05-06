@@ -33,22 +33,12 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-
-# start of parameters for projectpaygroup.tech
-frontend projectpaygroup.tech-http-frontend
-	bind	 *:80
-	http-request set-header X-Forwarded-Proto http
-	default_backend	 projectpaygroup.tech-backend
-
-
-frontend  projectpaygroup.tech-https-frontend
-	bind *:443 ssl crt /etc/ssl/www.projectpaygroup.tech.pem
-	http-request set-header X-Forwarded-Proto https
-        default_backend projectpaygroup.tech-backend
-
-
-backend projectpaygroup.tech-backend
+listen 181321-lb-01
+        bind *:80
+        bind *:443 ssl crt /etc/letsencrypt/live/www.projectpaygroup.tech/projectpaygroup.pem
+        mode http
+        redirect scheme https code 301 if !{ ssl_fc }
         balance roundrobin
+        option forwardfor
         server 181321-web-01 35.153.98.34:80 check
         server 181321-web-02 34.232.71.57:80 check
-# end of parameters
